@@ -53,13 +53,30 @@
     <title>php-hotel</title>
 </head>
 <body>
-    <?php foreach($hotels as $hotel): ?>
-        <ul>
-            <?php foreach($hotel as $chiave => $valore): ?>
-                <li><?php echo $chiave ?>: <?php echo $valore ?></li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endforeach; ?>
+    <table class="table">
+        <!-- titoli tabella -->
+        <thead>
+            <tr>
+            <th scope="col">Nome Hotel</th>
+            <th scope="col">Descrizione</th>
+            <th scope="col">Parcheggio</th>
+            <th scope="col">Votazione</th>
+            <th scope="col">Distanza dal centro</th>
+            </tr>
+        </thead>
+        <!-- contenuto righe tabella -->
+        <?php foreach($hotels as $hotel): ?>
+        <tbody>
+            <tr>
+            <td><?php echo $hotel['name'] ?></td>
+            <td><?php echo $hotel['description'] ?></td>
+            <td><?php echo $hotel['parking'] ?></td>
+            <td><?php echo $hotel['vote'] ?></td>
+            <td><?php echo $hotel['distance_to_center'] ?> km</td>
+            </tr>
+        </tbody>
+        <?php endforeach; ?>
+    </table>
 
     
 </body>

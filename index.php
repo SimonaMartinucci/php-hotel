@@ -40,6 +40,7 @@
 
     ];
 
+    // FILTRO PARKING
     // se checkbox selezionata
     if (isset($_GET['with_parking'])) {
         // creo nuovo array
@@ -57,6 +58,31 @@
         $filteredHotels = $hotels;
     };
 
+
+    // FILTRO RATINGS
+    $arrayRatings = [1, 2, 3, 4, 5];
+    // se nessun radio 'rating' è selezionato, parto dal filtro 'parking'
+    $ratedHotels = $filteredHotels;
+
+    // se un radio 'rating' è selezionato
+    if(isset($_GET['rating'])) {
+        // array vuoto
+        $ratedHotels = [];
+        // creo variabile per il valore del radio selezionato
+        $selectedRating = $_GET['rating'];
+        // ciclo gli hotel filtrati dal filtro 'parking'
+        foreach ($filteredHotels as $hotel) {
+            // se il valore 'vote' è maggiore o uguale a valore radio selezionato
+            if ($hotel['vote'] >= $selectedRating) {
+                // aggiungi hotel ad array
+                $ratedHotels[] = $hotel;
+            }
+        }
+    };
+
+    // array su cui ciclo uguale ad array filtrato da entrambi i filtri
+    $finalHotels = $ratedHotels;
+
 ?>
 
 
@@ -73,8 +99,17 @@
     <div class="container my-5">
         <h1 class="mb-4 fw-bold">PHP HOTEL</h1>
         <form class="mb-4" action="index.php" method="get">
+            <!-- filtro parking -->
             <input type="checkbox" name="with_parking">
             <label class="ms-1" for="checkbox">Con parcheggio</label>
+
+            <!-- filtro votazioni -->
+            <label class="ms-5 me-3" for="rating">Scegli un voto</label>
+            <?php foreach($arrayRatings as $number): ?>
+                <input type="radio" id="rating_<?php echo $number ?>" name="rating" value="<?php echo $number; ?>">
+                <label class="ms-1 me-3" for="rating_<?php echo $number ?>"><?php echo $number ?></label>
+            <?php endforeach; ?>
+
             <button class="btn btn-primary ms-4" type="submit">Cerca</button>
         </form>
         <table class="table">
@@ -89,7 +124,7 @@
                 </tr>
             </thead>
             <!-- contenuto righe tabella -->
-            <?php foreach($filteredHotels as $hotel): ?>
+            <?php foreach($finalHotels as $hotel): ?>
             <tbody>
                 <tr>
                 <td><?php echo $hotel['name'] ?></td>

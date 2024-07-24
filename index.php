@@ -53,6 +53,14 @@
     <title>php-hotel</title>
 </head>
 <body>
+    <?php foreach($hotels as $hotel): ?>
+        <ul>
+            <?php foreach($hotel as $chiave => $valore): ?>
+                <li><?php echo $chiave ?>: <?php echo $valore ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endforeach; ?>
+
     
 </body>
 </html>

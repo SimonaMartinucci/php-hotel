@@ -106,7 +106,7 @@
             <!-- filtro votazioni -->
             <label class="ms-5 me-3" for="rating">Scegli un voto</label>
             <?php foreach($arrayRatings as $number): ?>
-                <input type="radio" id="rating_<?php echo $number ?>" name="rating" value="<?php echo $number; ?>">
+                <input type="radio" id="rating_<?php echo $number ?>" name="rating" value="<?php echo $number; ?>" <?php if (isset($_GET['rating']) && $_GET['rating'] === $number) echo 'checked'; ?>>
                 <label class="ms-1 me-3" for="rating_<?php echo $number ?>"><?php echo $number ?></label>
             <?php endforeach; ?>
 

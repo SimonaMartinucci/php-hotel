@@ -40,6 +40,23 @@
 
     ];
 
+    // se checkbox selezionata
+    if (isset($_GET['with_parking'])) {
+        // creo nuovo array
+        $filteredHotels = [];
+        // ciclo
+        foreach ($hotels as $hotel) {
+            // se 'parkin' è true
+            if ($hotel['parking']) {
+                // inserisco l'hotel nel nuovo array
+                $filteredHotels[] = $hotel;
+            }
+        }
+    // altrimenti nuovo array uguale ad array originale
+    } else {
+        $filteredHotels = $hotels;
+    };
+
 ?>
 
 
@@ -55,6 +72,11 @@
 <body>
     <div class="container my-5">
         <h1 class="mb-4 fw-bold">PHP HOTEL</h1>
+        <form class="mb-4" action="index.php" method="get">
+            <input type="checkbox" name="with_parking">
+            <label class="ms-1" for="checkbox">Con parcheggio</label>
+            <button class="btn btn-primary ms-4" type="submit">Cerca</button>
+        </form>
         <table class="table">
             <!-- titoli tabella -->
             <thead>
@@ -67,7 +89,7 @@
                 </tr>
             </thead>
             <!-- contenuto righe tabella -->
-            <?php foreach($hotels as $hotel): ?>
+            <?php foreach($filteredHotels as $hotel): ?>
             <tbody>
                 <tr>
                 <td><?php echo $hotel['name'] ?></td>
